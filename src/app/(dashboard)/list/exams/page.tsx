@@ -5,6 +5,7 @@ import Image from "next/image";
 import React from "react";
 import { role, examsData } from "@/lib/data";
 import Link from "next/link";
+import FormModal from "@/components/FormModal";
 const columns = [
   {
     header: "Subject Name",
@@ -55,15 +56,16 @@ const ExamList = () => {
       <td className="hidden md:table-cell  ">{exam.date}</td>
       <td>
         <div className="flex items-center gap-2">
-          <Link href={`/list/exams/${exam.id}`}>
+          {/* <Link href={`/list/exams/${exam.id}`}>
             <button className="w-7 h-7 flex items-center justify-center bg-lamaSky rounded-full cursor-pointer">
-              <Image src="/edit.png" width={16} height={16} alt="" />
+              <Image src="/update.png" width={16} height={16} alt="" />
             </button>
-          </Link>
+          </Link> */}
           {role === "admin" && (
-            <button className="w-7 h-7 flex items-center justify-center bg-lamaPurple rounded-full cursor-pointer">
-              <Image src="/delete.png" width={16} height={16} alt="" />
-            </button>
+            <>
+              <FormModal table="exam" type="update" data={exam} id={exam.id} />
+              <FormModal table="exam" type="delete" id={exam.id} />
+            </>
           )}
         </div>
       </td>
@@ -84,11 +86,7 @@ const ExamList = () => {
             <button className="w-8 h-8 flex items-center justify-center bg-lamaYellow rounded-full cursor-pointer">
               <Image src="/sort.png" width={14} height={14} alt="" />
             </button>
-            {role === "admin" && (
-              <button className="w-8 h-8 flex items-center justify-center bg-lamaYellow rounded-full cursor-pointer">
-                <Image src="/plus.png" width={14} height={14} alt="" />
-              </button>
-            )}
+            {role === "admin" && <FormModal table="exam" type="create" />}
           </div>
         </div>
       </div>

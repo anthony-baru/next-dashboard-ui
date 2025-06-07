@@ -5,6 +5,7 @@ import Image from "next/image";
 import React from "react";
 import { role, parentsData } from "@/lib/data";
 import Link from "next/link";
+import FormModal from "@/components/FormModal";
 const columns = [
   {
     header: "Info",
@@ -68,13 +69,19 @@ const ParentList = () => {
         <div className="flex items-center gap-2">
           <Link href={`/list/parents/${parent.id}`}>
             <button className="w-7 h-7 flex items-center justify-center bg-lamaSky rounded-full cursor-pointer">
-              <Image src="/edit.png" width={16} height={16} alt="" />
+              <Image src="/view.png" width={16} height={16} alt="" />
             </button>
           </Link>
           {role === "admin" && (
-            <button className="w-7 h-7 flex items-center justify-center bg-lamaPurple rounded-full cursor-pointer">
-              <Image src="/delete.png" width={16} height={16} alt="" />
-            </button>
+            <>
+              <FormModal
+                table="parent"
+                type="update"
+                data={parent}
+                id={parent.id}
+              />
+              <FormModal table="parent" type="delete" id={parent.id} />
+            </>
           )}
         </div>
       </td>
@@ -95,11 +102,7 @@ const ParentList = () => {
             <button className="w-8 h-8 flex items-center justify-center bg-lamaYellow rounded-full cursor-pointer">
               <Image src="/sort.png" width={14} height={14} alt="" />
             </button>
-            {role === "admin" && (
-              <button className="w-8 h-8 flex items-center justify-center bg-lamaYellow rounded-full cursor-pointer">
-                <Image src="/plus.png" width={14} height={14} alt="" />
-              </button>
-            )}
+            {role === "admin" && <FormModal table="parent" type="create" />}
           </div>
         </div>
       </div>

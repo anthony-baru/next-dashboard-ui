@@ -5,6 +5,7 @@ import Image from "next/image";
 import React from "react";
 import { role, eventsData } from "@/lib/data";
 import Link from "next/link";
+import FormModal from "@/components/FormModal";
 const columns = [
   {
     header: "Title",
@@ -62,15 +63,21 @@ const EventList = () => {
       <td className="hidden md:table-cell  ">{event.endTime}</td>
       <td>
         <div className="flex items-center gap-2">
-          <Link href={`/list/events/${event.id}`}>
+          {/* <Link href={`/list/events/${event.id}`}>
             <button className="w-7 h-7 flex items-center justify-center bg-lamaSky rounded-full cursor-pointer">
-              <Image src="/edit.png" width={16} height={16} alt="" />
+              <Image src="/update.png" width={16} height={16} alt="" />
             </button>
-          </Link>
+          </Link> */}
           {role === "admin" && (
-            <button className="w-7 h-7 flex items-center justify-center bg-lamaPurple rounded-full cursor-pointer">
-              <Image src="/delete.png" width={16} height={16} alt="" />
-            </button>
+            <>
+              <FormModal
+                table="event"
+                type="update"
+                data={event}
+                id={event.id}
+              />
+              <FormModal table="event" type="delete" id={event.id} />
+            </>
           )}
         </div>
       </td>
@@ -91,11 +98,7 @@ const EventList = () => {
             <button className="w-8 h-8 flex items-center justify-center bg-lamaYellow rounded-full cursor-pointer">
               <Image src="/sort.png" width={14} height={14} alt="" />
             </button>
-            {role === "admin" && (
-              <button className="w-8 h-8 flex items-center justify-center bg-lamaYellow rounded-full cursor-pointer">
-                <Image src="/plus.png" width={14} height={14} alt="" />
-              </button>
-            )}
+            {role === "admin" && <FormModal table="event" type="create" />}
           </div>
         </div>
       </div>
