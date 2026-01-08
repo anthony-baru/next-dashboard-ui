@@ -4,6 +4,7 @@ import BigCalendar from "@/components/BigCalendar";
 import Announcement from "@/components/Announcement";
 import Link from "next/link";
 import Performance from "@/components/Performance";
+import FormModal from "@/components/FormModal";
 const SingleTeacherPage = () => {
   return (
     <div className="flex flex-1 flex-col xl:flex-row p-4 gap-4 ">
@@ -25,7 +26,10 @@ const SingleTeacherPage = () => {
               />
             </div>
             <div className="w-2/3 flex flex-col justify-between gap-4">
-              <h1 className="text-xl font-semibold">Leonar Snyder</h1>
+              <div className="flex items-center gap-4">
+                <h1 className="text-xl font-semibold">Leonar Snyder</h1>
+                <FormModal table="teacher" type="update" />
+              </div>
               <p className="text-sm text-gray-500">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
                 itaque numquam quae! Veniam at, nulla laudantium delectus
