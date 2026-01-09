@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: postgres_db
+    volumes:
+      - ./.postgresql/db:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=lamadev
+      - POSTGRES_PASSWORD=lama123456
+      - POSTGRES_DB=lamadb
+    ports:
+      - '5431:5431'
+    command: postgres -p 5431
+    
+  app:
+    build: .
+    container_name: nextjs_app
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgres://lamadev:lama123456@postgres:5431/lamadb
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+   
+networks:
+  default:
+    name: dev
+    external: true
